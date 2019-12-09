@@ -49,9 +49,9 @@ def follow_handle(sender, instance, created, **kwargs):
         followed = instance.followed
         notices = followed.notifications.filter(verb='关注了你')
         notice = None
-        for n in notices:
-            if following == n.actor:
-                notice = n
+        for no in notices:
+            if following == no.actor:
+                notice = no
                 break
         if notice:
             notice.delete()
