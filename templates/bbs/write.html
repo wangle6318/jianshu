@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>简书--编辑文章</title>
+        <link rel="stylesheet" href="{% static 'UMeditor/themes/default/css/umeditor.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/write.css' %}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="container-left">
+				<a href="{% url 'index' %}">回到首页</a>
+				<div class="author-info">
+					<a href="#">
+						<img src="{{ userinfo.head_img.url }}"/>
+						<p>{{ userinfo.name }}</p>
+					</a>
+				</div>
+			</div>
+			<div class="container-middle">
+				<div class="new-article">
+					<img src="{% static 'img/new.svg' %}"/>
+					<span>新建文章</span>
+				</div>
+				<ul class="article-list">
+                    {% for art in article %}
+                        {% if forloop.first %}
+                            <li class="article article-active" data-artid="{{ art.id }}">
+                                <img src="{% static 'img/icon-articles.svg' %}"/>
+                                <span class="article-title">{{ art.title }}</span>
+                                <img src="{% static 'img/del.svg' %}" class="delete"/>
+					        </li>
+                        {% else %}
+                            <li class="article" data-artid="{{ art.id }}">
+                                <img src="{% static 'img/icon-articles.svg' %}" alt="文章"/>
+                                <span class="article-title">{{ art.title }}</span>
+                                <img src="{% static 'img/del.svg' %}" class="delete" alt="删除"/>
+					        </li>
+                        {% endif %}
+                    {% endfor %}
+				</ul>
+			</div>
+			<div class="container-right">
+				<input type="text" class="title" value="{{ article.first.title }}"/>
+				<script type="text/plain" id="myEditor">
+                    {% for art in article %}
+                        {% if forloop.first %}
+                            {% autoescape off %}
+                                {{ art.body }}
+                             {% endautoescape %}
+                        {% endif %}
+                    {% empty %}
+                        <p>请在这里写文章……</p>
+                    {% endfor %}
+				</script>
+			</div>
+		</div>
+	</body>
+	<script src="{% static 'UMeditor/third-party/jquery.min.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script src="{% static 'UMeditor/umeditor.config.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script src="{% static 'UMeditor/umeditor.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script src="{% static 'UMeditor/lang/zh-cn/zh-cn.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script src="{% static 'js/write.js' %}" type="text/javascript" charset="utf-8"></script>
+
+</html>

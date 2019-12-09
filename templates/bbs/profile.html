@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_content %}
+    <link rel="stylesheet" href="{% static 'css/basic.css' %}">
+{% endblock %}
+
+{% block title %}简书--设置{% endblock %}
+
+{% block content %}
+	<div class="container">
+			<div class="container-left">
+				<ul>
+					<li>
+						<a href="{% url 'bbs:basic' %}">
+							<img src="{% static 'img/ic-basic.svg' %}"/>
+							<span>基础设置</span>
+						</a>
+					</li>
+					<li class="active">
+						<a href="javascript:void(0);">
+							<img src="{% static 'img/ic-profile.svg' %}"/>
+							<span>个人资料</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="container-right">
+				<table>
+					<tbody class="infomation">
+						<tr>
+							<td class="top-line setting-title">性别</td>
+							<td class="top-line">
+                                {% ifequal user_info.sex '1' %}
+								    <input type="radio" value="1" name="sex" checked="checked"/>
+                                {% else %}
+                                    <input type="radio" value="1" name="sex"/>
+                                {% endifequal %}
+								<span>男</span>
+                                {% ifequal user_info.sex '2' %}
+								    <input type="radio" value="2" name="sex" checked="checked"/>
+                                {% else %}
+                                    <input type="radio" value="2" name="sex"/>
+                                {% endifequal %}
+								<span>女</span>
+                                {% ifequal user_info.sex '3' %}
+								    <input type="radio" value="3" name="sex" checked="checked"/>
+                                {% else %}
+                                    <input type="radio" value="3" name="sex"/>
+                                {% endifequal %}
+								<span>保密</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="setting-title">个人简介</td>
+							<td>
+								<form>
+                                    <textarea placeholder="填写你的个人简介">{% if user_info.intro %}{{ user_info.intro }}{% else %}{% endif %}</textarea>
+
+								</form>
+							</td>
+						</tr>
+						<tr>
+							<td class="setting-title">个人网站</td>
+							<td>
+								<form>
+									<input type="text" name="website" placeholder="http://你的网址"  value="{% if user_info.website %}{{ user_info.website }}{% else %}{% endif %}" />
+								</form>
+							</td>
+						</tr>
+						<tr>
+							<td class="setting-title">微信二维码</td>
+							<td class="weixin-qrcode">
+                                {% if user_info.wechatimg %}
+								    <img src="{{ user_info.wechatimg.url }}"/>
+                                {% endif %}
+								<a class="btn btn-hollow">
+									<input type="file" unselectable="on" class="hide" id="upload-wechat"/>更换图片
+								</a>
+								<a class="del-wechat del-wechat-active">删除</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-success setting-save" value="保存"/>
+			</div>
+		</div>
+{% endblock %}
+
+{% block js_content %}
+    <script src="{% static 'js/profile.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+
+

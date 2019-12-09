@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/notice.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1463382_bajhscxfyja.css"/>
+{% endblock %}
+{% block title %}消息-评论{% endblock %}
+{% block content %}
+		<div class="container">
+			<div class="container-left">
+				<ul>
+					<li>
+						<a href="{% url 'notice:notice_comment_list' %}">
+                        <i class="iconfont icon-comment1"></i>
+                        <span>评论</span>
+                    </a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-envelopeo"></i>
+							<span>简信</span>
+						</a>
+					</li>
+					<li class="active">
+						<a href="{% url 'notice:notice_likes_list' %}">
+							<i class="iconfont icon-like"></i>
+							<span>喜欢和赞</span>
+                            {% if unread_counts %}
+                            <span class="unread-count"><span>{{ unread_counts }}</span></span>
+                            {% endif %}
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'notice:notice_follow_list' %}">
+                        <i class="iconfont icon-followed"></i>
+                        <span>关注</span>
+                    </a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-money"></i>
+							<span>赞赏和付费</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-more"></i>
+							<span>其它提醒</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="container-right">
+				<div>
+					<div class="menu">
+						收到的喜欢和赞
+                        <a href="#" class="mark_all_read">全部已读</a>
+					</div>
+					<ul class="like-list">
+						<li>
+							<a href="#" class="avatar user"><img src="img/head_img.jfif"/></a>
+							<div class="info">
+								<a href="#" class="user">与诗</a>
+								<span>喜欢了你的文章</span>
+								<a href="#" class="article">《立足自身岗位，做好本职工作》</a>
+								<div class="time">2019.10.15 15:51</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>	
+		</div>
+{% endblock %}
+{% block js_content %}
+    <script src="{% static 'js/notice.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+
+

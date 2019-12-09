@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ other_user.name }}喜欢的文章{% endblock %}
+{% block css_content %}
+		<link rel="stylesheet" href="{% static 'css/info.css' %}"/>
+{% endblock %}
+{% block content %}
+		<div class="container">
+			<div class="container-left">
+				<div class="main-top">
+					<a href="" class="avatar"><img src="{{ other_user.head_img.url }}" alt="" /></a>
+					<div class="title">
+						<a href="" class="name">{{ other_user.name }}</a>
+                        {% ifequal other_user.sex '1' %}
+						    <img src="{% static 'img/male.svg' %}" alt="" />
+                            {% ifequal other_user.sex '2' %}
+                                <img src="{% static 'img/female.svg' %}" alt="" />
+                            {% endifequal %}
+                        {% endifequal %}
+					</div>
+					<div class="info">
+						<ul>
+							<li>
+								<div class="meta-block">
+									<a href="">
+										<p>{{ other_user.like }}</p>关注
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="meta-block">
+									<a href="">
+										<p>{{ other_user.fans }}</p>粉丝
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="meta-block">
+									<a href="javascript:void(0);">
+										<p>{{ other_user.article }}</p>文章
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="meta-block">
+									<a href="javascript:void(0);">
+										<p>{{ other_user.words }}</p>字数
+									</a>
+								</div>
+							</li>
+							<li>
+								<div class="meta-block">
+									<a href="javascript:void(0);">
+										<p>{{ other_user.loved }}</p>收获喜欢
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="outer-container">
+					<ul class="trigger-menu">
+						<li class="active"><a href="javascript:void(0);">喜欢的文章</a></li>
+					</ul>
+					<div class="list-container">
+						<ul class="note-list">
+							{% for art in article %}
+                                {% if art.have_img  %}
+                                    <li class="have-img">
+                                        <a class="wrap-img" href="{% url 'bbs:article' art.id %}"><img src="{{ art.have_img.url }}"/></a>
+                                {% else %}
+                                    <li>
+                                {% endif %}
+                                        <div class="content">
+                                            <a class="title" href="{% url 'bbs:article' art.id %}">{{ art.title }}</a>
+                                            <p class="abstract">
+                                                {{ art.abstract }}
+                                            </p>
+                                            <div class="meta">
+                                                <a href="" target="_blank" class="nickname">{{ art.author.userinfo.name }}</a>
+                                                <span class="comment">
+                                                    <img src="{% static 'img/comment.svg' %}"/>
+                                                    <span>{{ art.comments }}</span>
+                                                </span>
+                                                <span class="collect">
+                                                    <img src="{% static 'img/like.svg' %}"/>
+                                                    <span>{{ art.love }}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                            {% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="container-right">
+				<div class="title">个人介绍</div>
+				<div class="description">
+					<div class="js-intro" style="display: block;">
+						{% if other_user.intro %}
+                            {{ other_user.intro }}
+                        {% else %}
+                            这个人比较懒，还没有个人介绍
+                        {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+{% block js_content %}
+	<script src="{% static 'js/info.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+

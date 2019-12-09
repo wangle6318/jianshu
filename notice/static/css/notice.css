@@ -1,0 +1,350 @@
+li {
+    line-height: 20px;
+}
+
+a {
+    cursor: pointer;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.container{
+	padding-top: 91px;
+	width: 960px;
+	height: auto;
+	margin: auto;
+	/*background-color: darkgray;*/
+}
+
+.container-left{
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    margin: 86px 0 0;
+    padding: 0 0 30px;
+    width: 280px;
+    overflow: auto;
+	height: auto;
+    /*background-color: beige;*/
+}
+
+.container-left > ul > li{
+	height: 52px;
+	vertical-align: middle;
+	/*background-color: firebrick;*/
+	line-height: 52px;
+	font-size: 15px;
+	padding-left: 10px;
+}
+
+
+.container-left > ul > li:hover{
+	background-color: #f0f0f0;
+	border-radius: 4px;
+}
+
+
+.container-left > ul > li i{
+	position: relative;
+	font-size: 24px;
+	font-weight: 600;
+	top: 4px;
+	margin-right: 20px;
+	margin-left: 20px;
+	color: #ea6f5a;
+}
+
+.active{
+	background-color: #f0f0f0;
+	border-radius: 4px;
+}
+
+.mark_all_read{
+    margin-left: 10px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #969696;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+}
+
+.unread-count{
+    position: relative;
+    float: right;
+    margin-right: 30px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    background: #ff6b6b;
+    top: 16px;
+}
+
+.unread-count > span{
+    display: block;
+    color: #FFFFFF;
+    height: 20px;
+    line-height: 20px;
+    text-align: center
+}
+
+
+.container-right{
+	position: relative;
+	top: -5px;
+	float: right;
+	width: 680px;
+	height: auto;
+	/*background-color: cadetblue;*/
+	padding-left: 40px;
+}
+
+.container-right .menu {
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.container-right ul {
+    list-style: none;
+}
+
+.container-right .comment-list li, .container-right .follow-list li, .container-right .like-list li, .container-right .other-list li, .container-right .pay-list li {
+    padding: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.container-right .comment-list li.unread, .container-right .follow-list li.unread, .container-right .like-list li.unread, .container-right .other-list li.unread, .container-right .pay-list li.unread {
+    background-color: #f6fbff;
+}
+
+.container-right .comment-list .avatar, .container-right .follow-list .avatar, .container-right .like-list .avatar, .container-right .other-list .avatar, .container-right .pay-list .avatar {
+    display: inline-block;
+    margin-right: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.avatar {
+    width: 24px;
+    height: 24px;
+    display: block;
+    cursor: pointer;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+}
+
+.container-right .comment-list .info, .container-right .follow-list .info, .container-right .like-list .info, .container-right .other-list .info, .container-right .pay-list .info {
+    display: inline-block;
+    vertical-align: top;
+    width: 535px;
+    font-size: 0;
+    line-height: 1.7;
+}
+
+.container-right .comment-list .info a, .container-right .follow-list .info a, .container-right .like-list .info a, .container-right .other-list .info a, .container-right .pay-list .info a {
+    font-size: 15px;
+    color: #3194d0;
+}
+
+.container-right .comment-list .info .user, .container-right .follow-list .info .user, .container-right .like-list .info .user, .container-right .other-list .info .user, .container-right .pay-list .info .user {
+    margin: 0 5px 0 0;
+    color: #333;
+}
+
+.container-right .comment-list .info .comment-slogan, .container-right .comment-list .info .no-name, .container-right .follow-list .info .comment-slogan, .container-right .follow-list .info .no-name, .container-right .like-list .info .comment-slogan, .container-right .like-list .info .no-name, .container-right .other-list .info .comment-slogan, .container-right .other-list .info .no-name, .container-right .pay-list .info .comment-slogan, .container-right .pay-list .info .no-name {
+    font-size: 15px;
+    color: #333;
+}
+
+.container-right .comment-list .info span, .container-right .follow-list .info span, .container-right .like-list .info span, .container-right .other-list .info span, .container-right .pay-list .info span {
+    font-size: 15px;
+}
+
+.container-right .comment-list .time, .container-right .follow-list .time, .container-right .like-list .time, .container-right .other-list .time, .container-right .pay-list .time {
+    margin-top: 2px;
+    font-size: 12px;
+    color: #969696;
+    line-height: normal;
+}
+
+.container-right .comment-list p, .container-right .follow-list p, .container-right .like-list p, .container-right .other-list p, .container-right .pay-list p {
+    margin: 10px 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+
+.container-right .comment-list .meta, .container-right .follow-list .meta, .container-right .like-list .meta, .container-right .other-list .meta, .container-right .pay-list .meta {
+    margin-top: 10px;
+    height: 20px;
+}
+
+.container-right .comment-list .meta .function-btn, .container-right .follow-list .meta .function-btn, .container-right .like-list .meta .function-btn, .container-right .other-list .meta .function-btn, .container-right .pay-list .meta .function-btn {
+    float: left;
+    margin-right: 30px;
+    font-size: 13px;
+    color: #969696;
+}
+
+.container-right .comment-list .meta .function-btn i, .container-right .follow-list .meta .function-btn i, .container-right .like-list .meta .function-btn i, .container-right .other-list .meta .function-btn i, .container-right .pay-list .meta .function-btn i {
+    margin-right: 5px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.container-right .comment-list .meta .function-btn span, .container-right .follow-list .meta .function-btn span, .container-right .like-list .meta .function-btn span, .container-right .other-list .meta .function-btn span, .container-right .pay-list .meta .function-btn span {
+    vertical-align: middle;
+}
+
+.container-right .new-comment {
+    margin: 20px 0 0;
+}
+
+
+.container-right .new-comment .sign-container, .container-right .new-comment textarea {
+    padding: 10px 15px;
+    width: 100%;
+    height: 80px;
+    font-size: 13px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+    resize: none;
+    display: inline-block;
+    vertical-align: top;
+    outline-style: none;
+}
+
+.container-right .new-comment .write-function-block {
+    height: 50px;
+}
+
+.container-right .new-comment .hint {
+    float: left;
+    margin: 20px 0 0 20px;
+    font-size: 13px;
+    color: #969696;
+}
+
+.container-right .new-comment .btn-send {
+    float: right;
+    width: 78px;
+    margin: 10px 0;
+    padding: 8px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    color: #fff!important;
+    background-color: #42c02e;
+    cursor: pointer;
+    outline: none;
+    display: block;
+}
+
+.container-right .new-comment .cancel {
+    float: right;
+    margin: 18px 30px 0 0;
+    font-size: 16px;
+    color: #969696;
+}
+
+
+
+
+
+
+
+
+.container-right .follow-list .btn {
+    padding: 8px 0;
+    width: 100px;
+    float: right;
+    font-size: 15px;
+}
+
+.container-right .follow-list .info {
+    max-width: 420px;
+}
+
+.follow {
+    border-color: #42c02e;
+}
+
+.follow, .follow-cancel, .follow-each, .following {
+    padding: 8px 22px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.container-right .btn-success {
+    border-radius: 40px;
+    color: #fff;
+    background-color: #42c02e;
+    border-color: #42c02e;
+}
+
+.container-right .btn-default {
+    border-radius: 40px;
+    color: #8c8c8c;
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+}
+
+.btn-default:active, .btn-default:hover {
+    color: #8c8c8c;
+    background-color: #d7d7d7;
+    border-color: #d1d1d1;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.iconfont {
+    font-family: iconfont!important;
+    font-size: inherit;
+    font-style: normal;
+    font-weight: 400!important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.follow-cancel span, .follow-each span, .following span, .follow span {
+    margin-left: 2px;
+    display: inline;
+}

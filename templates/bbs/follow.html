@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}简书--关注{% endblock %}
+{% block css_content %}
+		<link rel="stylesheet" href="{% static 'css/follow.css' %}"/>
+{% endblock %}
+
+{% block content %}
+		<div class="container">
+			<div class="container-left">
+				<a href="javascript:void(0);">全部关注</a>
+				<ul>
+                    {% for follower in followers  %}
+                        <li><a href="{%  url 'bbs:my_main_page' %}?user={{ follower.followed.userinfo.user_id }}" class="wrap">
+                                <div class="avatar-collection">
+                                    <img src="{{ follower.followed.userinfo.head_img.url }}" alt="" />
+                                </div>
+                                <div class="name">{{ follower.followed.userinfo.name }}</div>
+                                <span class="count">{{ follower.followed.userinfo.fans }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+				</ul>
+			</div>
+			<div class="container-right">
+				<div>
+					<ul class="note-list">
+                        {% for art in article %}
+                            {% if art.have_img  %}
+                                <li class="have-img">
+                                    <a class="wrap-img" href="{% url 'bbs:article' art.id %}"><img src="{{ art.have_img.url }}"/></a>
+                            {% else %}
+                                <li>
+                            {% endif %}
+                                    <div class="content">
+                                        <a class="title" href="{% url 'bbs:article' art.id %}">{{ art.title }}</a>
+                                        <p class="abstract">
+                                            {{ art.abstract }}
+                                        </p>
+                                        <div class="meta">
+                                            <a href="" target="_blank" class="nickname">{{ art.author.userinfo.name }}</a>
+                                            <span class="comment">
+                                                <img src="{% static 'img/comment.svg' %}"/>
+                                                <span>{{ art.comments }}</span>
+                                            </span>
+                                            <span class="collect">
+                                                <img src="{% static 'img/like.svg' %}"/>
+                                                <span>{{ art.love }}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </li>
+                        {% endfor %}
+					</ul>	
+				</div>
+				<a class="load-more" data-offset="1">阅读更多</a>
+			</div>
+		</div>	
+{% endblock %}
+
+{% block js_content %}
+	<script src="{% static 'js/follow.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+

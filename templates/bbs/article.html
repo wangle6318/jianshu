@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block css_content %}
+		<link rel="stylesheet" href="{% static 'css/article.css' %}"/>
+{% endblock %}
+{% block content %}
+        <div class="note">
+			<div class="post">
+				<div class="article">
+					<h1 class="title" data-article="{{ article.id }}">{{ article.title }}</h1>
+					<div class="author">
+			          	<a class="avatar" href="{% url 'bbs:my_main_page' %}?user={{ article.author.userinfo.user_id }}">
+			            	<img src="{{ article.author.userinfo.head_img.url }}" alt="96">
+						</a>
+						<div class="info">
+			                <span class="name"><a href="{% url 'bbs:my_main_page' %}?user={{ article.author.userinfo.user_id }}">{{ article.author.userinfo.name }}</a></span>
+			                <!-- 关注用户按钮 -->
+                            {% if follow %}
+                                <a class="btn btn-default following"><span>已关注</span></a>
+                            {% else %}
+			                    <a class="btn btn-success follow"><span>关注</span></a>
+                            {% endif %}
+			                <!-- 文章数据信息 -->
+                            <div class="meta">
+			                <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                                <span class="publish-time">{{ article.last_modified_time|date:"Y-m-d H:i:s" }}</span>
+                                <span class="wordage">字数 {{ article.words }}</span>
+                                <span class="views-count">阅读 {{ article.views }}</span>
+                                <span class="comments-count">评论 {{ article.comments }}</span>
+                                <span class="likes-count">喜欢 {{ article.love }}</span>
+                            </div>
+			          	</div>
+			          <!-- 如果是当前作者，加入编辑按钮 -->
+			        </div>
+					<div class="show-content">
+						{% autoescape off %}
+                            {{ article.body }}
+                        {% endautoescape %}
+					</div>
+						
+					<div class="follow-detail">			
+				    	<div class="info">
+				        	<a class="avatar" href="{% url 'bbs:my_main_page' %}?user={{ article.author.userinfo.user_id }}">
+				          		<img src="{{ article.author.userinfo.head_img.url }}" alt="180">
+							</a>
+							{% if follow %}
+                                <a class="btn btn-default following"><span>已关注</span></a>
+                            {% else %}
+			                    <a class="btn btn-success follow"><span>关注</span></a>
+                            {% endif %}
+				        	<a class="title" href="{% url 'bbs:my_main_page' %}?user={{ article.author.userinfo.user_id }}">{{ article.author.userinfo.name }}</a>
+				        	<p>写了 {{ article.author.userinfo.words }} 字，被 {{ article.author.userinfo.fans }} 人关注，获得了 {{ article.author.userinfo.loved }} 个喜欢</p>
+				      	</div>
+				        <div class="signature">
+				        	{{ article.author.userinfo.intro|default_if_none:"这个人比较懒，还没有个人介绍" }}
+				        </div>
+					</div>
+					<div class="comment-list">
+						<div>
+							<form class="new-comment">
+								<a href="javascript:void(0);" class="avatar"><img src="{{ user_info.head_img.url }}"/></a>
+								<textarea name="" id="" placeholder="写下你的评论..."></textarea>
+								<div class="write-function-block" style="display: none;">
+									<a href="javascript:void(0);" class="btn btn-send submit-comment">发送</a>
+									<a href="javascript:void(0);" class="cancel cancel-comment">取消</a>
+								</div>
+							</form>
+						</div>
+						<div class="normal-comment-list">
+							<div>
+								<div>
+									<div class="top-title">
+										<span>评论</span>
+										<!--只在有评论的时候显示  只看作者选项-->
+										<a href="javascript:void(0);" class="author-only">只看作者</a>
+										<a href="javascript:void(0);" class="close-btn" style="display: none;">关闭评论</a>
+									</div>
+                                    {% for com in comments %}
+                                    {% empty %}
+                                        <div class="no-comment" style="display: block;"></div>
+                                        <div class="text">
+                                            智慧如你，不想<a href="javascripy:void(0);">发表一点想法</a>咩
+                                        </div>
+                                    {% endfor %}
+								</div>
+
+                                {% for comment in comments %}
+                                    <div class="comment" data-cid="{{ comment.id }}" id="comment-{{ comment.id }}">
+                                        <div class="comment-content">
+                                            <div class="author" data-uid="{{ comment.author.userinfo.user_id }}">
+                                                <div class="v-tooltip-container">
+                                                    <div class="v-tooltip-content">
+                                                        <a href="javascript:void(0);" class="avatar"><img src="{{ comment.author.userinfo.head_img.url }}" alt="" /></a>
+                                                    </div>
+                                                </div>
+                                                <div class="info">
+                                                    <a href="javascript:void(0);" class="name">{{ comment.author.userinfo.name }}</a>
+                                                    <div class="meta">
+                                                        <span>{{ comment.submit_date|date:"Y.m.d H:i" }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment-wrap">
+                                                <p>{{ comment.content }}</p>
+                                                <div class="tool-group">
+                                                    <a href="javascript:void(0);" class="thumbsup">
+                                                        {% for thumb in comment.thumbsup.all %}
+                                                            {% ifequal thumb.id user_info.user_id %}
+                                                                <img src="{% static 'img/thumbsup-a.svg' %}"/>
+                                                            {% else %}
+                                                                {% if forloop.last %}
+                                                                    <img src="{% static 'img/thumbsup-b.svg' %}"/>
+                                                                {% endif %}
+                                                            {% endifequal %}
+                                                        {% empty %}
+                                                            <img src="{% static 'img/thumbsup-b.svg' %}"/>
+                                                        {% endfor %}
+                                                        <span>赞</span>
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="reply">
+                                                        <img src="{% static 'img/comment.svg' %}"/>
+                                                        <span>回复</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sub-comment-list">
+                                            {% for reply in replys %}
+                                                {% ifequal comment.id reply.comment.id %}
+                                                    <div class="sub-comment" data-cid="{{ reply.id }}" id="reply-{{ reply.id }}">
+                                                        <p>
+                                                            <span data-uid="{{ reply.author_from.id }}">{{ reply.author_from.userinfo.name }} <strong>回复</strong> {{ reply.author_to.userinfo.name }}</span>
+                                                            <span>{{ reply.content }}</span>
+                                                        </p>
+                                                        <div class="tool-group">
+                                                            <a href="javascript:void(0);" class="thumbsup">
+
+                                                                {% for thumb in reply.thumbsup.all %}
+                                                                    {% ifequal thumb.id user_info.user_id %}
+                                                                        <img src="{% static 'img/thumbsup-a.svg' %}"/>
+                                                                    {% else %}
+                                                                        {% if forloop.last %}
+                                                                            <img src="{% static 'img/thumbsup-b.svg' %}"/>
+                                                                        {% endif %}
+                                                                    {% endifequal %}
+                                                                {% empty %}
+                                                                    <img src="{% static 'img/thumbsup-b.svg' %}"/>
+                                                                {% endfor %}
+
+                                                                <span>赞</span>
+                                                            </a>
+                                                            <a href="javascript:void(0);" class="reply-reply">
+                                                                <img src="{% static 'img/comment.svg' %}"/>
+                                                                <span>回复</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                {% endifequal %}
+                                            {% endfor %}
+                                            <div style="display: none;" class="reply-form">
+                                                <form class="new-comment">
+                                                    <textarea placeholder="写下你的评论..."></textarea>
+                                                    <div class="write-function-block">
+                                                        <a href="javascript:void(0);" class="btn btn-send submit-reply">发送</a>
+                                                        <a href="javascript:void(0);" class="cancel">取消</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="side-tool">
+			<ul>
+				<li style="display: none;"><a class="function-button gotop"><img src="{% static 'img/top.svg' %}"/></a></li>
+                {% if user.is_authenticated %}
+                    {% if collect %}
+                        <li><a class="function-button mark"><img src="{% static 'img/mark-active.svg' %}"/></a></li>
+                    {% else %}
+                        <li><a class="function-button mark"><img src="{% static 'img/mark.svg' %}"/></a></li>
+                    {% endif %}
+                    {% if love %}
+                        <li><a class="function-button love"><img src="{% static 'img/love-active.svg' %}"/></a></li>
+                    {% else %}
+                        <li><a class="function-button love"><img src="{% static 'img/love.svg' %}"/></a></li>
+                    {% endif %}
+                {% endif %}
+			</ul>
+		</div>
+{% endblock %}
+{% block js_content %}
+	<script src="{% static 'js/article.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}

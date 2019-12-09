@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_content %}
+    <link rel="stylesheet" href="{% static 'css/basic.css' %}">
+{% endblock %}
+
+{% block title %}简书--设置{% endblock %}
+
+{% block content %}
+	<div class="container">
+			<div class="container-left">
+				<ul>
+					<li class="active">
+						<a href="javascript:void(0);">
+							<img src="{% static 'img/ic-basic.svg' %}"/>
+							<span>基础设置</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'bbs:profile' %}">
+							<img src="{% static 'img/ic-profile.svg' %}"/>
+							<span>个人资料</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="container-right">
+				<table>
+					<tbody class="base">
+						<tr>
+							<td class="top-line">
+								<div class="avatar">
+									<img id="head_img" src="{{ user_info.head_img.url }}"/>
+								</div>
+							</td>
+							<td class="top-line">
+								<a class="btn btn-hollow">
+									<input type="file" unselectable="on" class="hide" id="upload_head_img"/>
+									更改头像
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="setting-title">昵称</td>
+							<td><input type="text" placeholder="请输入昵称" value="{{ user_info.name }}"/></td>
+						</tr>
+						<tr>
+							<td class="setting-title">电子邮件</td>
+                            {% if user_info.user.email %}
+                                <td class="setted">
+                                    <div>{{ user_info.user.email }}</div>
+                                    <a class="cancle-bind" id="cancel-bind-email">取消绑定</a>
+                                </td>
+                            {% else %}
+                                <td>
+								    <button class="btn btn-hollow" id="bind-email">点击绑定</button>
+							    </td>
+                            {% endif %}
+						</tr>
+						<tr>
+							<td class="setting-title">手机</td>
+                            {% if user_info.phone %}
+                                <td class="setted">
+                                    <div>{{ user_info.phone }}</div>
+                                    <a class="cancle-bind" id="bind-phone">更换绑定的手机号</a>
+                                </td>
+                            {% else %}
+                                <td>
+								    <button class="btn btn-hollow" id="bind-phone">点击绑定</button>
+							    </td>
+                            {% endif %}
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-success setting-save" value="保存"/>
+			</div>
+		</div>
+{% endblock %}
+
+{% block js_content %}
+        <script src="{% static 'js/basic.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+
+

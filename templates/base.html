@@ -1,0 +1,67 @@
+{% load static %}
+{% load notifications_tags %}
+{% notifications_unread as unread_count %}
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static "css/navbar.css" %}">
+    {% block css_content %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="">
+            <a class="logo" href="{% url 'index' %}"><img src="{% static "img/logo.png" %}" alt="" /></a>
+            <div class="navba-collapse">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'index' %}">发现</a></li>
+                    <li><a href="{% url 'bbs:following' %}">关注</a></li>
+                    <li>
+                        <a href="{% url 'notice:notice_comment_list' %}">消息</a>
+                        {% if unread_count %}
+                            <svg viewBox="0 0 8 8" width="8px" height="12px">
+                                <circle cx="3" cy="3" r="3" fill="#ff6b6b"></circle>
+                            </svg>
+                        {% endif %}
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'index' %}">首页</a></li>
+                {% endif %}
+                <li class="search">
+                    <form action="" method="post">
+                        <input class="search-input" type="text" name="" id="" value="" autocomplete="off" placeholder="搜索" />
+                        <a href="javascript:void(0);" class="search-btn">
+                            <img src="{% static 'img/search.svg' %}"/>
+                        </a>
+                    </form>
+                </li>
+            </div>
+            {% if user.is_authenticated %}
+                <a class="write-btn" href="{% url 'bbs:write' %}">写文章</a>
+                <div class="login-user">
+                    <a class="user-img" href="javascript:void(0);" data-id="{{ user_info.id }}"><img src="{{ user_info.head_img.url }}"/></a>
+                    <ul class="drop-menu">
+                        <li><a href="{% url 'bbs:my_main_page' %}">我的主页</a></li>
+                        <li><a href="{% url 'bbs:collection' %}">收藏的文章</a></li>
+                        <li><a href="{% url 'bbs:love' %}">喜欢的文章</a></li>
+                        <li><a href="{% url 'bbs:basic' %}">设置</a></li>
+                        <li><a href="">帮助与反馈</a></li>
+                        <li><a href="{% url 'bbs:signout' %}">退出</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="user" style="display: block;">
+                    <a href="{% url 'bbs:signin' %}" id="sign_up">注册</a>
+                    <a href="{% url 'bbs:signup' %}" id="sign_in">登陆</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+    {% block content %}{% endblock %}
+    <script src="{% static 'js/jquery-3.1.0.min.js' %}" type="text/javascript" charset="utf-8"></script>
+    <script src="{% static 'js/navbar.js' %}" type="text/javascript" charset="utf-8"></script>
+    {% block js_content %}{% endblock %}
+
+</body>
+</html>

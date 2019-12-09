@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  title%}简书{% endblock %}
+{% block css_content %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jSlider.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="container-left">
+            <div class="container-carousel">
+                <div class="jSlider" id="slider1" data-navigation = "hover" data-indicator = "hover" data-loop = "True">
+                    <div><a href=""><img src="{% static 'img/slide1.jpg' %}"/></a></div>
+                    <div><a href=""><img src="{% static 'img/slide2.jpg' %}"/></a></div>
+                    <div><a href=""><img src="{% static 'img/slide3.jpg' %}"/></a></div>
+                    <div><a href=""><img src="{% static 'img/slide4.jpg' %}"/></a></div>
+                </div>
+            </div>
+            <div class="list-container">
+                <ul class="note-list">
+                    {% for art in article %}
+                        {% if art.have_img  %}
+                            <li class="have-img">
+                                <a class="wrap-img" href="{% url 'bbs:article' art.id %}"><img src="{{ art.have_img.url }}"/></a>
+                        {% else %}
+                            <li>
+                        {% endif %}
+                                <div class="content">
+                                    <a class="title" href="{% url 'bbs:article' art.id %}">{{ art.title }}</a>
+                                    <p class="abstract">
+                                        {{ art.abstract }}
+                                    </p>
+                                    <div class="meta">
+                                        <a href="" target="_blank" class="nickname">{{ art.author.userinfo.name }}</a>
+                                        <span class="comment">
+                                            <img src="{% static 'img/comment.svg' %}"/>
+                                            <span>{{ art.comments }}</span>
+                                        </span>
+                                        <span class="collect">
+                                            <img src="{% static 'img/like.svg' %}"/>
+                                            <span>{{ art.love }}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="javascript:void(0);" class="load-more" data-offset="1">阅读更多</a>
+        </div>
+        <div class="container-right">
+            <div class="adv">
+                <a href=""><img src="{% static 'img/adv001.png' %}"/></a>
+            </div>
+
+            <div class="recommended-authors">
+                <div class="title">
+                    <span>推荐作者</span>
+                    <a href="javascript:void(0);" class="page-change">
+                        <img src="{% static 'img/segi-icon-Change.svg' %}"/>
+                        <span>换一批</span>
+                    </a>
+                </div>
+                <ul class="list">
+                    {% for author in rec_author %}
+                        <li>
+                            <a href="{%  url 'bbs:my_main_page' %}?user={{ author.user_id }}" class="avatar">
+                                <img src="{{ author.head_img.url }}" alt="{{ author.name }}"/>
+                            </a>
+                            <a href="javascript:void(0);" class="follow">关注</a>
+                            <a href="{%  url 'bbs:my_main_page' %}?user={{ author.user_id }}" class="name">{{ author.name }}</a>
+                            <p>写了{{ author.words }}字 · {{ author.loved }}喜欢</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="side-tool">
+        <ul>
+            <li style="display: none;"><a class="function-button"><img src="{% static 'img/top.svg' %}"/></a></li>
+        </ul>
+    </div>
+    <div class="footer container">
+        <p>
+            <a href="">关于与诗</a>
+            <em> · </em>
+            <a href="">联系我们</a>
+            <em> · </em>
+            <a href="">加入我们</a>
+            <em> · </em>
+            <a href="">与诗出版</a>
+            <em> · </em>
+            <a href="">品牌与徽标</a>
+            <em> · </em>
+            <a href="">帮助中心</a>
+            <em> · </em>
+            <a href="">合作伙伴</a>
+        </p>
+        <p>备案:©2012-2019 与诗自己闹着玩的 / 与诗 / 沪自己备案12772i24324 </p>
+        <p>联系电话：12345678901</p>
+    </div>
+{% endblock %}
+
+{% block js_content %}
+	<script src="{% static 'js/jquery.jSlider.min.js' %}" type="text/javascript" charset="utf-8"></script>
+	<script src="{% static 'js/index.js' %}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
