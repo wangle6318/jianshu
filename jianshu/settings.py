@@ -139,10 +139,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_HOST = "smtp.126.com"   # 服务器
 EMAIL_PORT = 25               # 一般情况下都为25
-EMAIL_HOST_USER = "leowle@126.com"   # 账号
-EMAIL_HOST_PASSWORD = "wl1085987931"  # 密码d
+EMAIL_HOST_USER = "xxxx@126.com"   # 账号
+EMAIL_HOST_PASSWORD = "xxxxxxxx"  # 密码d
 EMAIL_USE_TLS = False             # 一般都为False
-EMAIL_FROM = "leowle@126.com"        # 邮箱来自
+EMAIL_FROM = "xxxx@126.com"        # 邮箱来自
 
 SESSION_COOKIE_NAME = "sessionid"      # Session的cookie保存在浏览器上时的key，即：sessionid＝随机字符串（默认）
 SESSION_COOKIE_PATH = "/"              # Session的cookie保存的路径（默认）
